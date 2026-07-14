@@ -1,0 +1,610 @@
+/* =============================================================
+   Dra. Caroline Ringelski · Oftalmologia
+   Folha de estilos única — mobile-first
+   Ordem: 1) tokens  2) reset  3) base  4) componentes
+          5) seções  6) responsivo  7) acessibilidade/motion
+   Todas as cores e fontes vêm do manual de identidade v1.0.
+   ============================================================= */
+
+/* -------------------------------------------------------------
+   1 · TOKENS DA MARCA
+   ------------------------------------------------------------- */
+:root {
+  /* Cores — proporção 70/20/10 (neutros / escuros / rosé) */
+  --areia:          #FBF7F5;  /* fundo padrão */
+  --blush:          #FADFDE;  /* fundo alternativo suave */
+  --nude:           #E8E2DF;  /* divisórias e superfícies */
+  --rose-quartzo:   #F7CAC9;  /* acento — máx. 10% da página */
+  --taupe:          #947978;  /* títulos e elementos gráficos (texto grande) */
+  --taupe-profundo: #6E5654;  /* texto corrido — contraste 6,3:1 sobre Areia */
+  --cinza-quente:   #8A7F7C;  /* legendas e apoio */
+  --grafite:        #2F2A2A;  /* texto principal e fundo escuro */
+
+  /* Tipografia */
+  --font-display: 'Bodoni Moda', 'Playfair Display', Georgia, serif;
+  --font-texto:   'Poppins', 'Montserrat', system-ui, sans-serif;
+
+  /* Forma e ritmo */
+  --raio: 14px;
+  --respiro: clamp(1.5rem, 5vw, 3rem);   /* margem interna lateral */
+  --secao-y: clamp(4rem, 10vw, 7.5rem);  /* respiro vertical entre seções */
+  --largura: 1120px;                     /* largura máxima do conteúdo */
+  --transicao: 220ms ease;
+}
+
+/* -------------------------------------------------------------
+   2 · RESET ENXUTO
+   ------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+
+img, svg { display: block; max-width: 100%; }
+ul[role="list"] { list-style: none; padding: 0; }
+a { color: inherit; }
+
+/* -------------------------------------------------------------
+   3 · BASE
+   ------------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px; /* compensa o cabeçalho fixo ao usar âncoras */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--areia);
+  color: var(--taupe-profundo);
+  font-family: var(--font-texto);
+  font-weight: 400;
+  font-size: 1rem;               /* 16px */
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Contêiner central */
+.wrap {
+  width: 100%;
+  max-width: var(--largura);
+  margin-inline: auto;
+  padding-inline: var(--respiro);
+}
+
+/* --- Tipografia --------------------------------------------- */
+.hero-title,
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 400;             /* nunca bold pesado */
+  color: var(--grafite);
+  line-height: 1.18;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+}
+
+.hero-title  { font-size: clamp(2.25rem, 7vw, 3.75rem); }  /* 36 → 60px */
+.section-title { font-size: clamp(1.75rem, 4.4vw, 2.5rem); } /* 28 → 40px */
+
+/* Eyebrow / rótulo: caixa alta, 11–12px, tracking 0,16em */
+.eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-bottom: 1rem;
+}
+.eyebrow-light { color: var(--rose-quartzo); }
+
+/* Linha de apoio à esquerda do eyebrow (elemento gráfico da marca) */
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  margin-right: 0.75rem;
+  vertical-align: middle;
+  background: var(--rose-quartzo);
+}
+
+.lead {
+  font-size: clamp(1.0625rem, 2.2vw, 1.25rem);
+  font-weight: 300;             /* Light apenas acima de 20px */
+  line-height: 1.75;
+  max-width: 34em;
+}
+
+.section-intro {
+  max-width: 46ch;
+  color: var(--taupe-profundo);
+  margin-top: 1rem;
+}
+.section-intro-light { color: var(--nude); }
+
+.link-inline {
+  color: var(--taupe-profundo);
+  text-decoration: underline;
+  text-decoration-color: var(--rose-quartzo);
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  transition: color var(--transicao);
+}
+.link-inline:hover { color: var(--grafite); }
+.section-dark .link-inline { color: var(--areia); }
+.section-dark .link-inline:hover { color: var(--rose-quartzo); }
+
+/* -------------------------------------------------------------
+   4 · COMPONENTES
+   ------------------------------------------------------------- */
+
+/* --- Botões -------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  padding: 0.875rem 1.75rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--transicao), color var(--transicao),
+              border-color var(--transicao);
+}
+
+/* Botão suave em rosé — o acento da marca */
+.btn-primary {
+  background: var(--rose-quartzo);
+  color: var(--grafite);
+}
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: var(--grafite);
+  color: var(--areia);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: var(--nude);
+  color: var(--taupe-profundo);
+}
+.btn-ghost:hover,
+.btn-ghost:focus-visible {
+  border-color: var(--taupe);
+  color: var(--grafite);
+}
+
+.btn-sm { padding: 0.625rem 1.25rem; font-size: 0.875rem; }
+.btn-wide { width: 100%; margin-top: 2rem; }
+.btn-icon { width: 20px; height: 20px; flex: none; }
+
+/* --- Cabeçalho ----------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(251, 247, 245, 0.9);   /* Areia translúcida */
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transicao), background-color var(--transicao);
+}
+.site-header.is-scrolled { border-bottom-color: var(--nude); }
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 72px;
+}
+
+/* Assinatura da marca — proporções originais preservadas (nunca esticar) */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+.brand-logo {
+  width: auto;
+  height: 40px;                 /* acima do mínimo de 32px em tela */
+  transition: opacity var(--transicao);
+}
+.brand:hover .brand-logo { opacity: 0.8; }
+
+/* Menu — mobile-first: fechado por padrão, abre em painel */
+.nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--areia);
+  border-bottom: 1px solid var(--nude);
+  display: none;
+}
+.nav.is-open { display: block; }
+
+.nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 1rem var(--respiro) 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.nav-list a {
+  display: block;
+  padding: 0.625rem 0;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  color: var(--taupe-profundo);
+  transition: color var(--transicao);
+}
+.nav-list a:hover { color: var(--grafite); }
+.nav-list .btn { margin-top: 0.75rem; align-self: flex-start; }
+
+/* Botão do menu (hambúrguer de dois traços, fino como a marca) */
+.nav-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.nav-toggle-bar {
+  display: block;
+  width: 24px;
+  height: 1px;
+  margin-inline: auto;
+  background: var(--taupe-profundo);
+  transition: transform var(--transicao), opacity var(--transicao);
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:first-child {
+  transform: translateY(3.5px) rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:last-child {
+  transform: translateY(-3.5px) rotate(-45deg);
+}
+
+/* -------------------------------------------------------------
+   5 · SEÇÕES
+   ------------------------------------------------------------- */
+
+/* --- Hero ---------------------------------------------------- */
+.hero {
+  position: relative;
+  padding-block: clamp(3rem, 9vw, 6rem) var(--secao-y);
+  overflow: hidden;
+  /* brilho quente e difuso: "luz" é a palavra que guia a marca */
+  background:
+    radial-gradient(120% 90% at 85% 8%, var(--blush) 0%, rgba(250, 223, 222, 0) 60%),
+    var(--areia);
+}
+.hero-inner { display: grid; gap: clamp(2.5rem, 6vw, 4rem); }
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.875rem;
+  margin-top: 2.25rem;
+}
+
+.hero-meta {
+  margin-top: 2rem;
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+  color: var(--cinza-quente);
+}
+
+.hero-art { display: flex; justify-content: center; }
+.retina-motif {
+  width: min(340px, 78vw);
+  height: auto;
+  opacity: 0.9;
+}
+
+/* --- Seções genéricas ---------------------------------------- */
+.section { padding-block: var(--secao-y); }
+
+.section-head { margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
+
+/* Faixa escura: os 20% de grafite da proporção da marca */
+.section-dark {
+  background: var(--grafite);
+  color: var(--nude);
+}
+.section-dark .section-title { color: var(--areia); }
+
+/* --- Cards de áreas de atuação -------------------------------- */
+.cards {
+  display: grid;
+  gap: 1.25rem;
+  margin: 0;
+}
+
+.card {
+  padding: 2.25rem 1.75rem;
+  background: var(--areia);
+  border: 1px solid var(--nude);
+  border-radius: var(--raio);
+  color: var(--taupe);           /* o ícone herda currentColor */
+  transition: border-color var(--transicao), background-color var(--transicao);
+}
+.card:hover {
+  background: rgba(250, 223, 222, 0.35);  /* véu de Blush, sem branco puro */
+  border-color: var(--rose-quartzo);
+}
+
+.card-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 1.5rem;
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.375rem;
+  line-height: 1.3;
+  color: var(--grafite);
+  margin-bottom: 0.75rem;
+}
+
+.card-text {
+  font-size: 0.9375rem;
+  color: var(--taupe-profundo);
+}
+
+/* Nota sobre demais condições acompanhadas */
+.note {
+  margin-top: 1.25rem;
+  padding: 1.75rem;
+  background: var(--blush);
+  border-radius: var(--raio);
+  font-size: 0.9375rem;
+  color: var(--taupe-profundo);
+}
+.note strong { font-weight: 500; color: var(--grafite); }
+
+/* --- Etapas da avaliação -------------------------------------- */
+.steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 2.5rem;
+}
+
+.step { padding-top: 1.5rem; border-top: 1px solid rgba(232, 226, 223, 0.22); }
+
+.step-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  color: var(--rose-quartzo);
+  margin-bottom: 0.75rem;
+}
+
+.step-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.25rem;
+  color: var(--areia);
+  margin-bottom: 0.625rem;
+}
+
+.step-text { font-size: 0.9375rem; color: var(--nude); }
+
+.closing {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  padding-top: 2rem;
+  border-top: 1px solid rgba(232, 226, 223, 0.22);
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.6vw, 1.625rem);
+  line-height: 1.45;
+  color: var(--areia);
+  max-width: 34ch;
+}
+
+/* --- Contato --------------------------------------------------- */
+.contato-grid { display: grid; gap: clamp(2.5rem, 6vw, 4rem); }
+
+.contato-dados { font-style: normal; }
+
+.dados-list {
+  display: grid;
+  gap: 1.5rem;
+  padding: 2rem 1.75rem;
+  background: var(--areia);
+  border: 1px solid var(--nude);
+  border-radius: var(--raio);
+}
+
+.dado + .dado { padding-top: 1.5rem; border-top: 1px solid var(--nude); }
+
+.dado-label {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cinza-quente);
+  margin-bottom: 0.5rem;
+}
+
+.dado-valor {
+  display: block;
+  font-size: 1.0625rem;
+  color: var(--grafite);
+  text-decoration: none;
+  line-height: 1.6;
+}
+a.dado-valor { transition: color var(--transicao); }
+a.dado-valor:hover { color: var(--taupe); }
+
+.dado .link-inline {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+}
+
+/* --- Rodapé ---------------------------------------------------- */
+.site-footer {
+  background: var(--grafite);
+  color: var(--nude);
+  padding-block: clamp(3rem, 7vw, 4.5rem);
+}
+
+.footer-inner { display: grid; gap: 2.5rem; }
+
+.footer-logo {
+  width: auto;
+  height: 52px;
+  margin-bottom: 1rem;
+}
+
+.footer-crm {
+  margin-top: 0.375rem;
+  font-size: 0.8125rem;
+  color: var(--cinza-quente);
+}
+
+.footer-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 0;
+  margin: 0;
+}
+.footer-nav a {
+  font-size: 0.875rem;
+  text-decoration: none;
+  color: var(--nude);
+  transition: color var(--transicao);
+}
+.footer-nav a:hover { color: var(--rose-quartzo); }
+
+.footer-legal {
+  display: grid;
+  gap: 0.75rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(232, 226, 223, 0.18);
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  color: var(--cinza-quente);
+  max-width: 68ch;
+}
+.footer-copy { color: var(--cinza-quente); }
+
+/* -------------------------------------------------------------
+   6 · RESPONSIVO — a partir do tablet
+   ------------------------------------------------------------- */
+@media (min-width: 720px) {
+  .cards { grid-template-columns: repeat(3, 1fr); }
+  .steps { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .note { margin-top: 2rem; padding: 2rem 2.25rem; }
+  .dados-list { padding: 2.5rem; }
+  .btn-wide { width: auto; }
+
+  .footer-inner {
+    grid-template-columns: 1.2fr 1fr;
+    align-items: start;
+  }
+  .footer-nav { justify-self: end; }
+  .footer-legal { grid-column: 1 / -1; }
+}
+
+@media (min-width: 960px) {
+  .brand-logo { height: 46px; }
+
+  .hero-inner {
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+  }
+  .retina-motif { width: min(420px, 100%); }
+
+  .contato-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  /* Menu horizontal no desktop */
+  .nav-toggle { display: none; }
+  .nav {
+    position: static;
+    display: block;
+    background: none;
+    border: 0;
+  }
+  .nav-list {
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+    padding: 0;
+  }
+  .nav-list a { padding: 0; }
+  .nav-list .btn { margin-top: 0; }
+}
+
+/* -------------------------------------------------------------
+   7 · ACESSIBILIDADE E MOVIMENTO
+   ------------------------------------------------------------- */
+
+/* Atalho para o conteúdo (visível ao receber foco) */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: var(--grafite);
+  color: var(--areia);
+  border-radius: var(--raio);
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: top var(--transicao);
+}
+.skip-link:focus { top: 1rem; }
+
+/* Foco sempre visível, na cor da marca */
+:focus-visible {
+  outline: 2px solid var(--taupe-profundo);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.section-dark :focus-visible,
+.site-footer :focus-visible { outline-color: var(--rose-quartzo); }
+
+/* Revelação suave ao rolar.
+   O estado inicial só é aplicado quando o JS está ativo (a classe .js é
+   adicionada ao <html> pelo script). Sem JS, tudo aparece normalmente. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+.js .reveal.is-visible { opacity: 1; transform: none; }
+
+/* Respeita quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* Impressão: papel limpo, sem elementos de navegação */
+@media print {
+  .site-header, .nav, .hero-art, .btn { display: none !important; }
+  body { background: #fff; color: #2F2A2A; }
+  .section-dark, .site-footer { background: #fff; color: #2F2A2A; }
+}
