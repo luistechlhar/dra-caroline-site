@@ -303,10 +303,9 @@ body {
 }
 
 .hero-art { display: flex; justify-content: center; }
-.retina-motif {
-  width: min(340px, 78vw);
+.hero-simbolo {
+  width: min(360px, 82vw);
   height: auto;
-  opacity: 0.9;
 }
 
 /* --- Seções genéricas ---------------------------------------- */
@@ -417,41 +416,67 @@ body {
 
 .contato-dados { font-style: normal; }
 
-.dados-list {
+/* Grade de fios: o fundo Nude aparece nos vãos de 1px entre as células */
+.dados-grid {
   display: grid;
-  gap: 1.5rem;
-  padding: 2rem 1.75rem;
-  background: var(--areia);
+  grid-template-columns: 1fr;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  background: var(--nude);
   border: 1px solid var(--nude);
   border-radius: var(--raio);
+  overflow: hidden;
 }
 
-.dado + .dado { padding-top: 1.5rem; border-top: 1px solid var(--nude); }
+.dado {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  padding: 1.5rem 1.375rem;
+  background: var(--areia);
+}
+
+.dado-icone {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  margin-top: 0.2rem;
+  color: var(--taupe);
+}
+
+.dado-texto { display: flex; flex-direction: column; min-width: 0; }
 
 .dado-label {
-  display: block;
-  font-size: 0.6875rem;
+  font-size: 0.625rem;
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--cinza-quente);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.375rem;
 }
 
 .dado-valor {
-  display: block;
-  font-size: 1.0625rem;
+  font-size: 1rem;
+  line-height: 1.45;
   color: var(--grafite);
   text-decoration: none;
-  line-height: 1.6;
+  overflow-wrap: anywhere;   /* e-mails longos não estouram a célula */
 }
 a.dado-valor { transition: color var(--transicao); }
 a.dado-valor:hover { color: var(--taupe); }
 
-.dado .link-inline {
-  display: inline-block;
-  margin-top: 0.5rem;
-  font-size: 0.875rem;
+.dado-apoio {
+  margin-top: 0.25rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--cinza-quente);
+}
+
+.dado-link {
+  align-self: flex-start;
+  margin-top: 0.625rem;
+  font-size: 0.8125rem;
 }
 
 /* --- Rodapé ---------------------------------------------------- */
@@ -509,7 +534,8 @@ a.dado-valor:hover { color: var(--taupe); }
   .cards { grid-template-columns: repeat(3, 1fr); }
   .steps { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
   .note { margin-top: 2rem; padding: 2rem 2.25rem; }
-  .dados-list { padding: 2.5rem; }
+  .dados-grid { grid-template-columns: 1fr 1fr; }
+  .dado { padding: 1.75rem 1.5rem; }
   .btn-wide { width: auto; }
 
   .footer-inner {
@@ -527,11 +553,12 @@ a.dado-valor:hover { color: var(--taupe); }
     grid-template-columns: 1.05fr 0.95fr;
     align-items: center;
   }
-  .retina-motif { width: min(420px, 100%); }
+  .hero-simbolo { width: min(460px, 100%); }
 
   .contato-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0.9fr 1.1fr;
     align-items: start;
+    gap: clamp(3rem, 6vw, 5rem);
   }
 
   /* Menu horizontal no desktop */

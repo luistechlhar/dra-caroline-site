@@ -22,6 +22,9 @@ Manual de Identidade Visual v1.0 (julho de 2026). Sem frameworks, sem backend, s
     ├── logo-simbolo.svg              # símbolo isolado — avatar, selo, marca d'água
     ├── logo-simbolo-areia.svg
     ├── logo-simbolo-grafite.svg
+    ├── simbolo-retina-grafite.svg    # olho + vasos (sem monograma) — ilustração do hero
+    ├── simbolo-retina-taupe.svg      # mesma arte em Taupe #947978
+    ├── simbolo-retina-rose.svg       # mesma arte em Rosé #F7CAC9
     ├── icons/                        # ícones lineares adicionais
     └── img/                          # fotos e og-image (opcional)
 ```
