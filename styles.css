@@ -1,5 +1,5 @@
 /* =============================================================
-   Dra. Caroline Ringelski · Oftalmologia
+   Dra. Caroline Ringvelski · Oftalmologia
    Folha de estilos única — mobile-first
    Ordem: 1) tokens  2) reset  3) base  4) componentes
           5) seções  6) responsivo  7) acessibilidade/motion
@@ -177,7 +177,7 @@ body {
 }
 
 .btn-sm { padding: 0.625rem 1.25rem; font-size: 0.875rem; }
-.btn-wide { width: 100%; margin-top: 2rem; }
+.btn-wide { width: 100%; margin-top: 1.5rem; }
 .btn-icon { width: 20px; height: 20px; flex: none; }
 
 /* --- Cabeçalho ----------------------------------------------- */
@@ -303,9 +303,48 @@ body {
 }
 
 .hero-art { display: flex; justify-content: center; }
-.hero-simbolo {
+.hero-foto {
   width: min(360px, 82vw);
   height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: var(--raio);
+  box-shadow: 0 24px 48px -24px rgba(47, 42, 42, 0.28);
+}
+
+/* --- Sobre ----------------------------------------------------- */
+.sobre-grid { display: grid; gap: clamp(2rem, 5vw, 3rem); }
+
+.sobre-foto img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: var(--raio);
+}
+
+.sobre-crm {
+  margin-top: 0.375rem;
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+  color: var(--cinza-quente);
+}
+
+.sobre-galeria {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.sobre-galeria img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: var(--raio);
 }
 
 /* --- Seções genéricas ---------------------------------------- */
@@ -411,33 +450,51 @@ body {
   max-width: 34ch;
 }
 
-/* --- Contato --------------------------------------------------- */
-.contato-grid { display: grid; gap: clamp(2.5rem, 6vw, 4rem); }
-
-.contato-dados { font-style: normal; }
-
-/* Grade de fios: o fundo Nude aparece nos vãos de 1px entre as células */
-.dados-grid {
+/* --- Contato: cards de clínica ---------------------------------- */
+.clinicas {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1px;
-  margin: 0;
-  padding: 0;
-  background: var(--nude);
+  gap: 1.5rem;
+}
+
+.clinica {
+  font-style: normal;
+  padding: 2rem 1.75rem;
+  background: var(--areia);
   border: 1px solid var(--nude);
   border-radius: var(--raio);
-  overflow: hidden;
 }
 
-.dado {
+.clinica-cidade {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--rose-quartzo);
+  background: var(--grafite);
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+
+.clinica-nome {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: var(--grafite);
+  margin-bottom: 1.25rem;
+}
+
+.clinica-linha {
   display: flex;
   align-items: flex-start;
-  gap: 0.875rem;
-  padding: 1.5rem 1.375rem;
-  background: var(--areia);
+  gap: 0.75rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  margin-bottom: 0.875rem;
 }
 
-.dado-icone {
+.clinica-icone {
   width: 20px;
   height: 20px;
   flex: none;
@@ -445,87 +502,13 @@ body {
   color: var(--taupe);
 }
 
-.dado-texto { display: flex; flex-direction: column; min-width: 0; }
-
-.dado-label {
-  font-size: 0.625rem;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--cinza-quente);
-  margin-bottom: 0.375rem;
-}
-
-.dado-valor {
-  font-size: 1rem;
-  line-height: 1.45;
-  color: var(--grafite);
-  text-decoration: none;
-  overflow-wrap: anywhere;   /* e-mails longos não estouram a célula */
-}
-a.dado-valor { transition: color var(--transicao); }
-a.dado-valor:hover { color: var(--taupe); }
-
-.dado-apoio {
-  margin-top: 0.25rem;
-  font-size: 0.8125rem;
-  line-height: 1.5;
-  color: var(--cinza-quente);
-}
-
-.dado-link {
-  align-self: flex-start;
-  margin-top: 0.625rem;
+.clinica-mapa {
+  display: inline-block;
+  margin-left: 2.1875rem;
   font-size: 0.8125rem;
 }
 
-/* --- Rodapé ---------------------------------------------------- */
-.site-footer {
-  background: var(--grafite);
-  color: var(--nude);
-  padding-block: clamp(3rem, 7vw, 4.5rem);
-}
-
-.footer-inner { display: grid; gap: 2.5rem; }
-
-.footer-logo {
-  width: auto;
-  height: 52px;
-  margin-bottom: 1rem;
-}
-
-.footer-crm {
-  margin-top: 0.375rem;
-  font-size: 0.8125rem;
-  color: var(--cinza-quente);
-}
-
-.footer-nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  padding: 0;
-  margin: 0;
-}
-.footer-nav a {
-  font-size: 0.875rem;
-  text-decoration: none;
-  color: var(--nude);
-  transition: color var(--transicao);
-}
-.footer-nav a:hover { color: var(--rose-quartzo); }
-
-.footer-legal {
-  display: grid;
-  gap: 0.75rem;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(232, 226, 223, 0.18);
-  font-size: 0.8125rem;
-  line-height: 1.65;
-  color: var(--cinza-quente);
-  max-width: 68ch;
-}
-.footer-copy { color: var(--cinza-quente); }
+.clinica-btn { margin-top: 1.75rem; }
 
 /* -------------------------------------------------------------
    6 · RESPONSIVO — a partir do tablet
@@ -534,8 +517,7 @@ a.dado-valor:hover { color: var(--taupe); }
   .cards { grid-template-columns: repeat(3, 1fr); }
   .steps { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
   .note { margin-top: 2rem; padding: 2rem 2.25rem; }
-  .dados-grid { grid-template-columns: 1fr 1fr; }
-  .dado { padding: 1.75rem 1.5rem; }
+  .clinicas { grid-template-columns: 1fr 1fr; }
   .btn-wide { width: auto; }
 
   .footer-inner {
@@ -553,11 +535,11 @@ a.dado-valor:hover { color: var(--taupe); }
     grid-template-columns: 1.05fr 0.95fr;
     align-items: center;
   }
-  .hero-simbolo { width: min(460px, 100%); }
+  .hero-foto { width: min(420px, 100%); }
 
-  .contato-grid {
-    grid-template-columns: 0.9fr 1.1fr;
-    align-items: start;
+  .sobre-grid {
+    grid-template-columns: 0.85fr 1.15fr;
+    align-items: center;
     gap: clamp(3rem, 6vw, 5rem);
   }
 
@@ -628,6 +610,54 @@ a.dado-valor:hover { color: var(--taupe); }
   }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* --- Rodapé ---------------------------------------------------- */
+.site-footer {
+  background: var(--grafite);
+  color: var(--nude);
+  padding-block: clamp(3rem, 7vw, 4.5rem);
+}
+
+.footer-inner { display: grid; gap: 2.5rem; }
+
+.footer-logo {
+  width: auto;
+  height: 52px;
+  margin-bottom: 1rem;
+}
+
+.footer-crm {
+  margin-top: 0.375rem;
+  font-size: 0.8125rem;
+  color: var(--cinza-quente);
+}
+
+.footer-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 0;
+  margin: 0;
+}
+.footer-nav a {
+  font-size: 0.875rem;
+  text-decoration: none;
+  color: var(--nude);
+  transition: color var(--transicao);
+}
+.footer-nav a:hover { color: var(--rose-quartzo); }
+
+.footer-legal {
+  display: grid;
+  gap: 0.75rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(232, 226, 223, 0.18);
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  color: var(--cinza-quente);
+  max-width: 68ch;
+}
+.footer-copy { color: var(--cinza-quente); }
 
 /* Impressão: papel limpo, sem elementos de navegação */
 @media print {

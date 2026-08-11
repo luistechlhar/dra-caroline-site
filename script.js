@@ -1,5 +1,5 @@
 /* =============================================================
-   Dra. Caroline Ringelski · Oftalmologia
+   Dra. Caroline Ringvelski · Oftalmologia
    JavaScript puro — sem dependências, sem bibliotecas.
    Tudo aqui é melhoria progressiva: o site funciona sem JS.
    ============================================================= */
