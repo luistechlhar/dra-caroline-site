@@ -242,7 +242,25 @@ body {
   transition: color var(--transicao);
 }
 .nav-list a:hover { color: var(--grafite); }
-.nav-list .btn { margin-top: 0.75rem; align-self: flex-start; }
+.nav-list li { display: flex; }
+.nav-item-cta { margin-top: 0.25rem; }
+.nav-item-cta .btn {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+.nav-item-social { justify-content: center; }
+
+/* Ícone do Instagram no menu */
+.nav-instagram {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--taupe-profundo);
+  transition: color var(--transicao);
+}
+.nav-instagram svg { width: 22px; height: 22px; }
+.nav-instagram:hover { color: var(--rose-quartzo); }
 
 /* Botão do menu (hambúrguer de dois traços, fino como a marca) */
 .nav-toggle {
@@ -346,6 +364,33 @@ body {
   object-position: top center;
   border-radius: var(--raio);
 }
+
+/* --- Instagram ------------------------------------------------- */
+.instagram-section { background: var(--blush); }
+
+.instagram-wrap { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.instagram-wrap .section-head { display: flex; flex-direction: column; align-items: center; }
+.instagram-intro { text-align: center; }
+
+.instagram-embed {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.75rem;
+}
+/* O embed.js do Instagram injeta um <iframe> aqui dentro; forçamos a
+   largura a acompanhar o cartão para não vazar em telas pequenas. */
+.instagram-embed > *,
+.instagram-embed iframe {
+  width: 100% !important;
+  max-width: 400px !important;
+  border-radius: var(--raio);
+  overflow: hidden;
+  box-shadow: 0 24px 48px -24px rgba(47, 42, 42, 0.28);
+}
+
+.instagram-cta { background: var(--areia); }
 
 /* --- Seções genéricas ---------------------------------------- */
 .section { padding-block: var(--secao-y); }
@@ -508,7 +553,12 @@ body {
   font-size: 0.8125rem;
 }
 
-.clinica-btn { margin-top: 1.75rem; }
+.clinica-btn {
+  margin-top: 1.75rem;
+  width: 100% !important;
+  text-align: center;
+}
+.clinica-btn .btn-icon { flex-shrink: 0; }
 
 /* -------------------------------------------------------------
    6 · RESPONSIVO — a partir do tablet
@@ -558,7 +608,8 @@ body {
     padding: 0;
   }
   .nav-list a { padding: 0; }
-  .nav-list .btn { margin-top: 0; }
+  .nav-item-cta { margin-top: 0; }
+  .nav-item-cta .btn { width: auto; }
 }
 
 /* -------------------------------------------------------------
