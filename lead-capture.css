@@ -1,0 +1,232 @@
+/* ============================================================
+   AGENDAMENTO INTERATIVO — estilos
+   Cole no <head>, depois de styles.css:
+   <link rel="stylesheet" href="lead-capture.css">
+
+   Usa as mesmas cores da identidade (Areia, Rosé, Taupe, Grafite)
+   e as mesmas fontes já carregadas pelo index.html
+   (Bodoni Moda para títulos, Poppins para texto).
+============================================================ */
+
+.lead-wizard {
+  --lead-areia: #FBF7F5;
+  --lead-rose: #F7CAC9;
+  --lead-taupe: #947978;
+  --lead-grafite: #2A2622;
+  --lead-line: rgba(42, 38, 34, 0.14);
+  --lead-error: #B3413B;
+
+  max-width: 640px;
+  margin: 0 auto;
+  background: var(--lead-areia);
+  border: 1px solid var(--lead-line);
+  border-radius: 4px;
+  padding: clamp(1.5rem, 4vw, 2.75rem);
+}
+
+/* Barra de progresso */
+.lead-progress {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0 0 2rem;
+  padding: 0;
+}
+.lead-progress-item {
+  flex: 1;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.8rem;
+  color: var(--lead-taupe);
+  padding-top: 0.6rem;
+  border-top: 2px solid var(--lead-line);
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+.lead-progress-item span {
+  display: inline-block;
+  margin-right: 0.35rem;
+  font-family: "Bodoni Moda", serif;
+}
+.lead-progress-item.is-active,
+.lead-progress-item.is-done {
+  border-top-color: var(--lead-taupe);
+  color: var(--lead-grafite);
+}
+
+/* Passos */
+.lead-step {
+  display: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+.lead-step.is-active {
+  display: block;
+  animation: lead-fade 0.35s ease both;
+}
+@keyframes lead-fade {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lead-step.is-active { animation: none; }
+}
+
+.lead-step-title {
+  font-family: "Bodoni Moda", serif;
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+  font-weight: 400;
+  color: var(--lead-grafite);
+  margin: 0 0 1.25rem;
+}
+
+/* Passo 1 — chips de motivo */
+.lead-chip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 0.75rem;
+}
+.lead-chip {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.95rem;
+  text-align: left;
+  background: #fff;
+  color: var(--lead-grafite);
+  border: 1px solid var(--lead-line);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.lead-chip:hover { border-color: var(--lead-taupe); }
+.lead-chip.is-selected {
+  background: var(--lead-rose);
+  border-color: var(--lead-taupe);
+}
+
+/* Passo 2 — unidades */
+.lead-unit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
+}
+.lead-unit {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  text-align: left;
+  background: #fff;
+  border: 1px solid var(--lead-line);
+  border-radius: 4px;
+  padding: 1rem 1.1rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.lead-unit:hover { border-color: var(--lead-taupe); }
+.lead-unit.is-selected {
+  background: var(--lead-rose);
+  border-color: var(--lead-taupe);
+}
+.lead-unit-city {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  color: var(--lead-taupe);
+}
+.lead-unit-name {
+  font-family: "Bodoni Moda", serif;
+  font-size: 1.05rem;
+  color: var(--lead-grafite);
+}
+.lead-unit-addr {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.82rem;
+  color: var(--lead-grafite);
+  opacity: 0.75;
+}
+
+/* Passo 3 — campos de contato */
+.lead-field {
+  display: block;
+  margin-bottom: 1.1rem;
+  font-family: "Poppins", sans-serif;
+}
+.lead-field span {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--lead-grafite);
+  margin-bottom: 0.35rem;
+}
+.lead-field input {
+  width: 100%;
+  font: inherit;
+  font-size: 1rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--lead-line);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--lead-grafite);
+}
+.lead-field input:focus-visible {
+  outline: 2px solid var(--lead-taupe);
+  outline-offset: 1px;
+}
+
+.lead-check {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.82rem;
+  color: var(--lead-grafite);
+  opacity: 0.9;
+  margin: 1.25rem 0;
+}
+.lead-check input { margin-top: 0.2rem; }
+
+.lead-error {
+  color: var(--lead-error);
+  font-family: "Poppins", sans-serif;
+  font-size: 0.85rem;
+  margin-top: 0.75rem;
+}
+
+/* Ações e navegação entre passos */
+.lead-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.lead-hint {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.8rem;
+  color: var(--lead-taupe);
+}
+.lead-next:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Passo 4 — confirmação */
+.lead-step-done {
+  text-align: center;
+}
+.lead-step-done .lead-step-title { margin: 1rem 0 0.75rem; }
+.lead-step-done p {
+  font-family: "Poppins", sans-serif;
+  color: var(--lead-grafite);
+  max-width: 42ch;
+  margin: 0 auto 1.75rem;
+}
+.lead-done-icon {
+  width: 56px;
+  height: 56px;
+  color: var(--lead-taupe);
+}
+
+@media (max-width: 480px) {
+  .lead-actions { flex-direction: column-reverse; align-items: stretch; }
+  .lead-progress-item span { display: block; margin: 0 auto 0.15rem; }
+}
