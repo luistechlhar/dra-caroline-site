@@ -1,5 +1,7 @@
 /* ============================================================
-   AGENDAMENTO — lógica do cartão + pop-up
+   AGENDAMENTO — lógica do pop-up
+   Os botões "Agendar em Curitiba" / "Agendar em Joinville" da seção de
+   contato abrem este pop-up (classe .lead-open no index.html).
    Cole antes de </body>, depois de script.js:
    <script src="lead-capture.js" defer></script>
 
@@ -43,10 +45,10 @@
     goToStep(1);
   }
 
-  function openModal(card) {
+  function openModal(trigger) {
     lastFocused = document.activeElement;
-    state.unidade = card.dataset.unidade;
-    state.whatsapp = card.dataset.whatsapp;
+    state.unidade = trigger.dataset.unidade;
+    state.whatsapp = trigger.dataset.whatsapp;
     unidadeLabel.textContent = state.unidade;
     resetForm();
     overlay.hidden = false;
@@ -60,9 +62,9 @@
     if (lastFocused) lastFocused.focus();
   }
 
-  // Abrir pop-up ao clicar num cartão de unidade
-  document.querySelectorAll(".lead-unit-card").forEach((card) => {
-    card.addEventListener("click", () => openModal(card));
+  // Abrir pop-up ao clicar nos botões "Agendar em ..." da seção de contato
+  document.querySelectorAll(".lead-open").forEach((btn) => {
+    btn.addEventListener("click", () => openModal(btn));
   });
 
   // Fechar: botão X, clique fora do modal, tecla Esc

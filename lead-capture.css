@@ -8,60 +8,14 @@
    (Bodoni Moda para títulos, Poppins para texto).
 ============================================================ */
 
-.lead-section {
+.lead-modal-overlay,
+.lead-modal {
   --lead-areia: #FBF7F5;
   --lead-rose: #F7CAC9;
   --lead-taupe: #947978;
   --lead-grafite: #2A2622;
   --lead-line: rgba(42, 38, 34, 0.14);
   --lead-error: #B3413B;
-}
-
-/* ---------- Cartões de unidade (na página) ---------- */
-.lead-unit-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1rem;
-  max-width: 720px;
-  margin: 0 auto;
-}
-.lead-unit-card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.25rem;
-  text-align: left;
-  background: #fff;
-  border: 1px solid var(--lead-line);
-  border-radius: 4px;
-  padding: 1.5rem 1.5rem 1.25rem;
-  cursor: pointer;
-  font-family: "Poppins", sans-serif;
-  transition: border-color 0.2s ease, transform 0.2s ease;
-}
-.lead-unit-card:hover {
-  border-color: var(--lead-taupe);
-  transform: translateY(-2px);
-}
-.lead-unit-city {
-  font-size: 0.8rem;
-  letter-spacing: 0.02em;
-  color: var(--lead-taupe);
-}
-.lead-unit-name {
-  font-family: "Bodoni Moda", serif;
-  font-size: 1.2rem;
-  color: var(--lead-grafite);
-  margin-top: 0.15rem;
-}
-.lead-unit-addr {
-  font-size: 0.85rem;
-  color: var(--lead-grafite);
-  opacity: 0.75;
-  margin-top: 0.2rem;
-}
-.lead-unit-cta {
-  margin-top: 1.25rem;
 }
 
 /* ---------- Overlay + pop-up ---------- */
@@ -150,14 +104,17 @@
   color: var(--lead-grafite, #2A2622);
 }
 
-/* Passos */
-.lead-step {
+/* Passos — só o passo ativo aparece.
+   A especificidade extra (.lead-modal antes) evita qualquer conflito
+   com regras do styles.css e garante que a tela final fique escondida
+   até o JS ativá-la. */
+.lead-modal .lead-step {
   display: none;
   border: none;
   padding: 0;
   margin: 0;
 }
-.lead-step.is-active {
+.lead-modal .lead-step.is-active {
   display: block;
   animation: lead-fade 0.35s ease both;
 }
@@ -166,7 +123,7 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .lead-step.is-active { animation: none; }
+  .lead-modal .lead-step.is-active { animation: none; }
 }
 
 .lead-step-title {
@@ -269,14 +226,14 @@
 /* Importante: só fica visível quando .is-active for adicionada pelo JS —
    sem essa regra, o "display: flex" abaixo vencia o "display: none" padrão
    de .lead-step e a tela final aparecia junto com o passo 1. */
-.lead-step-done.is-active {
+.lead-modal .lead-step-done.is-active {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
 }
-.lead-step-done .lead-step-title { margin: 1rem 0 0.75rem; }
-.lead-step-done p {
+.lead-modal .lead-step-done .lead-step-title { margin: 1rem 0 0.75rem; }
+.lead-modal .lead-step-done p {
   font-family: "Poppins", sans-serif;
   color: var(--lead-grafite, #2A2622);
   max-width: 42ch;
@@ -288,7 +245,7 @@
   height: 56px;
   color: var(--lead-taupe, #947978);
 }
-.lead-step-done .btn { width: 100%; }
+.lead-modal .lead-step-done .btn { width: 100%; }
 
 @media (max-width: 480px) {
   .lead-actions { flex-direction: column-reverse; align-items: stretch; }
