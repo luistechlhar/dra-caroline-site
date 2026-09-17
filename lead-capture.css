@@ -61,15 +61,7 @@
   margin-top: 0.2rem;
 }
 .lead-unit-cta {
-  margin-top: 1rem;
-  font-size: 0.88rem;
-  color: var(--lead-grafite);
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--lead-line);
-  width: 100%;
-}
-.lead-unit-cta::after {
-  content: " →";
+  margin-top: 1.25rem;
 }
 
 /* ---------- Overlay + pop-up ---------- */
@@ -274,7 +266,10 @@
 }
 
 /* Passo 3 — encaminhamento (ícone corrigido: centralizado de verdade) */
-.lead-step-done {
+/* Importante: só fica visível quando .is-active for adicionada pelo JS —
+   sem essa regra, o "display: flex" abaixo vencia o "display: none" padrão
+   de .lead-step e a tela final aparecia junto com o passo 1. */
+.lead-step-done.is-active {
   display: flex;
   flex-direction: column;
   align-items: center;
