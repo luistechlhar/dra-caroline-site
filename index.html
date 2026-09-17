@@ -357,7 +357,7 @@
   </section>
 
   <!-- ============================================================
-       AGENDAMENTO INTERATIVO — captação de leads
+       AGENDAMENTO — duas unidades, cada uma abre um formulário em pop-up
        Envia para o backend (Google Apps Script → Planilha Google)
        e finaliza com handoff para o WhatsApp da unidade escolhida.
   ============================================================ -->
@@ -365,25 +365,59 @@
     <div class="wrap">
       <header class="section-head reveal">
         <p class="eyebrow">Agendamento</p>
-        <h2 class="section-title" id="agendamento-titulo">Vamos organizar sua avaliação</h2>
+        <h2 class="section-title" id="agendamento-titulo">Escolha a unidade mais próxima</h2>
         <p class="section-intro">
-          Três perguntas rápidas para a secretaria já te chamar preparada no WhatsApp,
-          sem repetir informação.
+          Toque na unidade para contar rapidamente o motivo da consulta —
+          a conversa continua no WhatsApp com a secretaria.
         </p>
       </header>
 
-      <form class="lead-wizard reveal" id="lead-wizard" novalidate>
+      <div class="lead-unit-cards" role="list">
+        <button type="button" class="lead-unit-card" role="listitem"
+                data-unidade="Curitiba/PR — Clínica de Olhos Gubert Deud"
+                data-whatsapp="5541988884453">
+          <span class="lead-unit-city">Curitiba · PR</span>
+          <span class="lead-unit-name">Clínica de Olhos Gubert Deud</span>
+          <span class="lead-unit-addr">R. Dr. Alexandre Gutierrez, 826 — Água Verde</span>
+          <span class="lead-unit-cta">Agendar nesta unidade</span>
+        </button>
 
-        <!-- Barra de progresso -->
+        <button type="button" class="lead-unit-card" role="listitem"
+                data-unidade="Joinville/SC — Ophtalmus"
+                data-whatsapp="554734223623">
+          <span class="lead-unit-city">Joinville · SC</span>
+          <span class="lead-unit-name">Ophtalmus</span>
+          <span class="lead-unit-addr">R. Blumenau, 178 — Centro</span>
+          <span class="lead-unit-cta">Agendar nesta unidade</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       POP-UP — formulário em 2 passos (motivo → contato)
+       Fica escondido (hidden) até o clique num dos cartões acima.
+  ============================================================ -->
+  <div class="lead-modal-overlay" id="lead-modal-overlay" hidden>
+    <div class="lead-modal" role="dialog" aria-modal="true" aria-labelledby="lead-modal-titulo">
+      <button type="button" class="lead-modal-close" id="lead-modal-close" aria-label="Fechar">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+          <path d="M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <p class="lead-modal-unidade" id="lead-modal-unidade"></p>
+
+      <form id="lead-wizard" novalidate>
+
         <ol class="lead-progress" aria-hidden="true">
           <li class="lead-progress-item is-active" data-step-dot="1"><span>1</span>Motivo</li>
-          <li class="lead-progress-item" data-step-dot="2"><span>2</span>Unidade</li>
-          <li class="lead-progress-item" data-step-dot="3"><span>3</span>Contato</li>
+          <li class="lead-progress-item" data-step-dot="2"><span>2</span>Contato</li>
         </ol>
 
         <!-- Passo 1 — motivo -->
         <fieldset class="lead-step is-active" data-step="1">
-          <legend class="lead-step-title">O que te trouxe até aqui?</legend>
+          <legend class="lead-step-title" id="lead-modal-titulo">O que te trouxe até aqui?</legend>
           <div class="lead-chip-grid" role="radiogroup" aria-label="Motivo da consulta">
             <button type="button" class="lead-chip" data-value="Retinopatia diabética">
               Retinopatia diabética
@@ -404,29 +438,8 @@
           </div>
         </fieldset>
 
-        <!-- Passo 2 — unidade -->
+        <!-- Passo 2 — dados de contato -->
         <fieldset class="lead-step" data-step="2">
-          <legend class="lead-step-title">Qual unidade é melhor para você?</legend>
-          <div class="lead-unit-grid" role="radiogroup" aria-label="Unidade de atendimento">
-            <button type="button" class="lead-unit" data-value="Curitiba/PR — Clínica de Olhos Gubert Deud">
-              <span class="lead-unit-city">Curitiba · PR</span>
-              <span class="lead-unit-name">Clínica de Olhos Gubert Deud</span>
-              <span class="lead-unit-addr">R. Dr. Alexandre Gutierrez, 826 — Água Verde</span>
-            </button>
-            <button type="button" class="lead-unit" data-value="Joinville/SC — Ophtalmus">
-              <span class="lead-unit-city">Joinville · SC</span>
-              <span class="lead-unit-name">Ophtalmus</span>
-              <span class="lead-unit-addr">R. Blumenau, 178 — Centro</span>
-            </button>
-          </div>
-          <div class="lead-actions">
-            <button type="button" class="btn btn-ghost lead-back" data-goto="1">Voltar</button>
-            <button type="button" class="btn btn-primary lead-next" data-goto="3" disabled>Continuar</button>
-          </div>
-        </fieldset>
-
-        <!-- Passo 3 — dados de contato -->
-        <fieldset class="lead-step" data-step="3">
           <legend class="lead-step-title">Para quem enviamos a confirmação?</legend>
 
           <label class="lead-field">
@@ -454,33 +467,32 @@
           </label>
 
           <div class="lead-actions">
-            <button type="button" class="btn btn-ghost lead-back" data-goto="2">Voltar</button>
-            <button type="submit" class="btn btn-primary" id="lead-submit">Confirmar e ir para o WhatsApp</button>
+            <button type="button" class="btn btn-ghost lead-back" data-goto="1">Voltar</button>
+            <button type="submit" class="btn btn-primary" id="lead-submit">Continuar no WhatsApp</button>
           </div>
           <p class="lead-error" id="lead-error" role="alert" hidden></p>
         </fieldset>
 
-        <!-- Passo 4 — confirmação -->
-        <div class="lead-step lead-step-done" data-step="4">
+        <!-- Passo 3 — encaminhamento -->
+        <div class="lead-step lead-step-done" data-step="3">
           <svg class="lead-done-icon" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
             <circle cx="24" cy="24" r="19" fill="none" stroke="currentColor" stroke-width="1.6"/>
             <path d="M15 24l6 6 12-13" fill="none" stroke="currentColor" stroke-width="1.8"
                   stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          <h3 class="lead-step-title">Recebido, <span id="lead-done-nome">tudo certo</span>.</h3>
+          <h3 class="lead-step-title">Perfeito, <span id="lead-done-nome">tudo certo</span>.</h3>
           <p>
-            Encaminhamos seus dados para a secretaria da unidade escolhida.
-            Toque abaixo para confirmar também pelo WhatsApp — assim o atendimento já
-            começa com o que você nos contou.
+            Recebemos o que você contou. Para seguir com o agendamento, é só continuar
+            a conversa com a secretaria da unidade no WhatsApp.
           </p>
           <a class="btn btn-primary btn-wide" id="lead-whatsapp-link" href="#" target="_blank" rel="noopener">
-            Confirmar no WhatsApp
+            Continuar no WhatsApp
           </a>
         </div>
 
       </form>
     </div>
-  </section>
+  </div>
 
   <!-- ============================================================
        05 · CONTATO E AGENDAMENTO — duas unidades

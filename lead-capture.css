@@ -1,5 +1,5 @@
 /* ============================================================
-   AGENDAMENTO INTERATIVO — estilos
+   AGENDAMENTO — cartões de unidade + pop-up
    Cole no <head>, depois de styles.css:
    <link rel="stylesheet" href="lead-capture.css">
 
@@ -8,20 +8,125 @@
    (Bodoni Moda para títulos, Poppins para texto).
 ============================================================ */
 
-.lead-wizard {
+.lead-section {
   --lead-areia: #FBF7F5;
   --lead-rose: #F7CAC9;
   --lead-taupe: #947978;
   --lead-grafite: #2A2622;
   --lead-line: rgba(42, 38, 34, 0.14);
   --lead-error: #B3413B;
+}
 
-  max-width: 640px;
+/* ---------- Cartões de unidade (na página) ---------- */
+.lead-unit-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  max-width: 720px;
   margin: 0 auto;
-  background: var(--lead-areia);
+}
+.lead-unit-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  text-align: left;
+  background: #fff;
   border: 1px solid var(--lead-line);
   border-radius: 4px;
-  padding: clamp(1.5rem, 4vw, 2.75rem);
+  padding: 1.5rem 1.5rem 1.25rem;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.lead-unit-card:hover {
+  border-color: var(--lead-taupe);
+  transform: translateY(-2px);
+}
+.lead-unit-city {
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: var(--lead-taupe);
+}
+.lead-unit-name {
+  font-family: "Bodoni Moda", serif;
+  font-size: 1.2rem;
+  color: var(--lead-grafite);
+  margin-top: 0.15rem;
+}
+.lead-unit-addr {
+  font-size: 0.85rem;
+  color: var(--lead-grafite);
+  opacity: 0.75;
+  margin-top: 0.2rem;
+}
+.lead-unit-cta {
+  margin-top: 1rem;
+  font-size: 0.88rem;
+  color: var(--lead-grafite);
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--lead-line);
+  width: 100%;
+}
+.lead-unit-cta::after {
+  content: " →";
+}
+
+/* ---------- Overlay + pop-up ---------- */
+.lead-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(42, 38, 34, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  z-index: 1000;
+}
+.lead-modal-overlay[hidden] { display: none; }
+
+.lead-modal {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--lead-areia, #FBF7F5);
+  border-radius: 6px;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  animation: lead-modal-in 0.25s ease both;
+}
+@keyframes lead-modal-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lead-modal { animation: none; }
+}
+
+.lead-modal-close {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--lead-grafite, #2A2622);
+  cursor: pointer;
+  border-radius: 50%;
+}
+.lead-modal-close:hover { background: rgba(42, 38, 34, 0.08); }
+
+.lead-modal-unidade {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.82rem;
+  color: var(--lead-taupe, #947978);
+  margin: 0 0 0.5rem;
+  padding-right: 2.5rem;
 }
 
 /* Barra de progresso */
@@ -37,7 +142,7 @@
   text-align: center;
   font-family: "Poppins", sans-serif;
   font-size: 0.8rem;
-  color: var(--lead-taupe);
+  color: var(--lead-taupe, #947978);
   padding-top: 0.6rem;
   border-top: 2px solid var(--lead-line);
   transition: border-color 0.3s ease, color 0.3s ease;
@@ -49,8 +154,8 @@
 }
 .lead-progress-item.is-active,
 .lead-progress-item.is-done {
-  border-top-color: var(--lead-taupe);
-  color: var(--lead-grafite);
+  border-top-color: var(--lead-taupe, #947978);
+  color: var(--lead-grafite, #2A2622);
 }
 
 /* Passos */
@@ -74,78 +179,37 @@
 
 .lead-step-title {
   font-family: "Bodoni Moda", serif;
-  font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+  font-size: clamp(1.2rem, 2.4vw, 1.5rem);
   font-weight: 400;
-  color: var(--lead-grafite);
+  color: var(--lead-grafite, #2A2622);
   margin: 0 0 1.25rem;
 }
 
 /* Passo 1 — chips de motivo */
 .lead-chip-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.65rem;
 }
 .lead-chip {
   font-family: "Poppins", sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   text-align: left;
   background: #fff;
-  color: var(--lead-grafite);
+  color: var(--lead-grafite, #2A2622);
   border: 1px solid var(--lead-line);
   border-radius: 4px;
-  padding: 0.9rem 1.1rem;
+  padding: 0.85rem 1rem;
   cursor: pointer;
   transition: border-color 0.2s ease, background 0.2s ease;
 }
-.lead-chip:hover { border-color: var(--lead-taupe); }
+.lead-chip:hover { border-color: var(--lead-taupe, #947978); }
 .lead-chip.is-selected {
-  background: var(--lead-rose);
-  border-color: var(--lead-taupe);
+  background: var(--lead-rose, #F7CAC9);
+  border-color: var(--lead-taupe, #947978);
 }
 
-/* Passo 2 — unidades */
-.lead-unit-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 0.75rem;
-}
-.lead-unit {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  text-align: left;
-  background: #fff;
-  border: 1px solid var(--lead-line);
-  border-radius: 4px;
-  padding: 1rem 1.1rem;
-  cursor: pointer;
-  transition: border-color 0.2s ease, background 0.2s ease;
-}
-.lead-unit:hover { border-color: var(--lead-taupe); }
-.lead-unit.is-selected {
-  background: var(--lead-rose);
-  border-color: var(--lead-taupe);
-}
-.lead-unit-city {
-  font-family: "Poppins", sans-serif;
-  font-size: 0.78rem;
-  letter-spacing: 0.02em;
-  color: var(--lead-taupe);
-}
-.lead-unit-name {
-  font-family: "Bodoni Moda", serif;
-  font-size: 1.05rem;
-  color: var(--lead-grafite);
-}
-.lead-unit-addr {
-  font-family: "Poppins", sans-serif;
-  font-size: 0.82rem;
-  color: var(--lead-grafite);
-  opacity: 0.75;
-}
-
-/* Passo 3 — campos de contato */
+/* Passo 2 — campos de contato */
 .lead-field {
   display: block;
   margin-bottom: 1.1rem;
@@ -154,7 +218,7 @@
 .lead-field span {
   display: block;
   font-size: 0.85rem;
-  color: var(--lead-grafite);
+  color: var(--lead-grafite, #2A2622);
   margin-bottom: 0.35rem;
 }
 .lead-field input {
@@ -165,10 +229,10 @@
   border: 1px solid var(--lead-line);
   border-radius: 4px;
   background: #fff;
-  color: var(--lead-grafite);
+  color: var(--lead-grafite, #2A2622);
 }
 .lead-field input:focus-visible {
-  outline: 2px solid var(--lead-taupe);
+  outline: 2px solid var(--lead-taupe, #947978);
   outline-offset: 1px;
 }
 
@@ -178,7 +242,7 @@
   align-items: flex-start;
   font-family: "Poppins", sans-serif;
   font-size: 0.82rem;
-  color: var(--lead-grafite);
+  color: var(--lead-grafite, #2A2622);
   opacity: 0.9;
   margin: 1.25rem 0;
 }
@@ -202,29 +266,34 @@
 .lead-hint {
   font-family: "Poppins", sans-serif;
   font-size: 0.8rem;
-  color: var(--lead-taupe);
+  color: var(--lead-taupe, #947978);
 }
 .lead-next:disabled {
   opacity: 0.45;
   cursor: not-allowed;
 }
 
-/* Passo 4 — confirmação */
+/* Passo 3 — encaminhamento (ícone corrigido: centralizado de verdade) */
 .lead-step-done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
 }
 .lead-step-done .lead-step-title { margin: 1rem 0 0.75rem; }
 .lead-step-done p {
   font-family: "Poppins", sans-serif;
-  color: var(--lead-grafite);
+  color: var(--lead-grafite, #2A2622);
   max-width: 42ch;
-  margin: 0 auto 1.75rem;
+  margin: 0 0 1.75rem;
 }
 .lead-done-icon {
+  display: block;
   width: 56px;
   height: 56px;
-  color: var(--lead-taupe);
+  color: var(--lead-taupe, #947978);
 }
+.lead-step-done .btn { width: 100%; }
 
 @media (max-width: 480px) {
   .lead-actions { flex-direction: column-reverse; align-items: stretch; }
