@@ -114,6 +114,22 @@
     return (v || "").replace(/\D/g, "");
   }
 
+  // Máscara de telefone: formata enquanto a pessoa digita.
+  // (41) 3422-3623 para fixo · (41) 98888-4453 para celular
+  function formatarTelefone(valor) {
+    const d = soDigitos(valor).slice(0, 11);
+    if (d.length <= 2) return d.length ? `(${d}` : "";
+    if (d.length <= 6) return `(${d.slice(0, 2)}) ${d.slice(2)}`;
+    if (d.length <= 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+    return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+  }
+
+  telInput.addEventListener("input", () => {
+    const antes = telInput.value;
+    const depois = formatarTelefone(antes);
+    if (antes !== depois) telInput.value = depois;
+  });
+
   form.addEventListener("submit", async (ev) => {
     ev.preventDefault();
     clearError();
